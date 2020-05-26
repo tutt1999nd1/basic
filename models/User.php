@@ -7,18 +7,20 @@ use Yii;
 /**
  * This is the model class for table "user".
  *
- * @property int $id
- * @property string $username
- * @property string $password
- * @property string $authKey
- * @property string $accessToken
- * @property AuthAssignment $id0
- * @property String $role
+// * @property int $id
+// * @property string $username
+// * @property string $password
+// * @property string $authKey
+// * @property string $accessToken
+
 
 
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    public $Id0;
+    public $role;
+
     /**
      * {@inheritdoc}
      */
@@ -33,8 +35,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'password', 'authKey', 'accessToken','role'], 'required'],
-            [['username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 300],
+            [['username','password','role'], 'required'],
+            [['username' ,'role'], 'string', 'max' => 300],
         ];
     }
 
@@ -115,15 +117,27 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     /**
      * Gets query for [[Id0]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return string
      */
     public function getId0()
     {
         return $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
     }
-    public function getRole()
-    {
-        return $this->id0->item_name;
-    }
+    /**
+     * Gets query for [[Id0]].
+     *
+     */
+//    public function getRole()
+//    {
+//                $test= $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
+//                return $test['item_name'];
+//    }
+//    public function getRole()
+//    {
+////        $test= AuthAssignment::find()->select(['item_name'])->where(['user_id' => $this->id])->one();
+////        return $test['item_name'];
+////        $test= AuthAssignment::find()->select(['item_name'])->where(['user_id' => $this->id])->one();
+//        return $this->id0->item_name;
+//    }
 }
 

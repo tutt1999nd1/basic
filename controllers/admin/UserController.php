@@ -6,6 +6,7 @@ use app\models\AuthAssignment;
 use Yii;
 use app\models\User;
 use app\models\UserSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,6 +22,21 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'view', 'delete'],
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+//                    [
+//                        'actions' => [],
+//                        'allow' => true,
+//                        'roles' => ['user'],
+//                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,8 +52,11 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-//        $test= User::findOne(1);
-//        print_r($test->role);
+//        $test= User::findOne(2);
+//        print_r($test->getRole());
+//        $test= new AuthAssignment();
+//        $test= AuthAssignment::find()->select(['item_name'])->where(['user_id' => 3])->one();
+//        print_r($test);
 //        die();
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -68,7 +87,12 @@ class UserController extends Controller
      */
     public function actionCreate(){
         $model = new User();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $auth= new AuthAssignment();
+
+        if ($model->load(Yii::$app->request->post())  &&$model->save() ) {
+            $auth->item_name =$model->role;
+            $auth->user_id = $model->id;
+            $auth->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -88,11 +112,11 @@ class UserController extends Controller
     {   $auth= new AuthAssignment();
         $model = $this->findModel($id);
 
-//        $auth= AuthAssignment::findOne($model->id0->user_id);
-//        $auth=$model->id0;
-//        print_r($auth);
-//        die();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $auth= AuthAssignment::find()->where(['user_id'=>$id])->one();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+            $auth['item_name']=$model->role;
+            $auth->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

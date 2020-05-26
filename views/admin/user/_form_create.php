@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\User */
 /* @var $form yii\widgets\ActiveForm */
 $role=\app\models\AuthAssignment::find()->all();
-$listData=ArrayHelper::map($role,'item_name','item_name');
+$listData=ArrayHelper::map($role,'user_id','item_name');
 ?>
 
 <div class="user-form">
@@ -16,8 +16,6 @@ $listData=ArrayHelper::map($role,'item_name','item_name');
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
-
 
     <?=
     $form->field($model, 'role')->dropDownList(

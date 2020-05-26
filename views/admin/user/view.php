@@ -31,8 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'username',
-            'rule',
-        ],
+            [
+//                    'attribute' => 'id0.item_name',
+                'attribute' => 'id0.item_name',
+//                'value' => 'id0.item_name',
+
+            ],
+            ],
     ]) ?>
 
 </div>

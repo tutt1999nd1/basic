@@ -5,6 +5,8 @@ namespace app\controllers;
 use app\models\Book;
 use app\models\Country;
 use app\models\BookForm;
+use app\models\SignUpForm;
+use app\models\User;
 use http\Url;
 use Yii;
 use yii\data\Pagination;
@@ -90,6 +92,17 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionSignup()
+    {
+//        $user= new User();
+//
+        $model = new SignUpForm();
+//        if ($model->load(Yii::$app->request->post()) ) {
+//            return $this->goHome();
+//        }
+
+        return $this->render('signup',['model'=>$model]);
+    }
 
     /**
      * Logout action.
@@ -131,43 +144,9 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionCountry()
-    {
-        $query = Country::find();
 
-        $pagination = new Pagination([
-            'defaultPageSize' => 5,
-            'totalCount' => $query->count(),
-        ]);
 
-        $countries = $query->orderBy('name')
-            ->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
 
-        return $this->render('country', [
-            'countries' => $countries,
-            'pagination' => $pagination,
-        ]);
-    }
-
-    public function actionUrl()
-    {
-//        $code=Yii::$app->request->get('code');
-//        $code1 = $_GET['code'];
-//        print_r($code1);
-//        die();
-
-//        print_r($country);
-//        die();
-//        $this->redirect("site/login");
-        $country = Country::find()
-            ->where(['code' => 'US'])
-            ->one();
-//        print_r($country);
-//        die();
-        return $this->render("countrytest", ['country' => $country]);
-    }
 
 
 }
