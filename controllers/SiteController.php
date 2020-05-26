@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\AuthAssignment;
 use app\models\Book;
 use app\models\Country;
 use app\models\BookForm;
@@ -94,12 +95,19 @@ class SiteController extends Controller
     }
     public function actionSignup()
     {
-//        $user= new User();
-//
+        $user= new User();
+        $auth= new AuthAssignment();
         $model = new SignUpForm();
-//        if ($model->load(Yii::$app->request->post()) ) {
-//            return $this->goHome();
-//        }
+        if ($model->load(Yii::$app->request->post()) ) {
+            $user->username=$model['username'];
+            $user->password=$model['password'];
+            $user->save(false);
+            print_r($user->id);
+            $auth->item_name='user';
+            $auth->user_id=$user->id;
+            $auth->save(false);
+            return $this->goHome();
+        }
 
         return $this->render('signup',['model'=>$model]);
     }

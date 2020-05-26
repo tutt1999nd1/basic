@@ -40,14 +40,7 @@ class SignUpForm extends Model
 
 
 
-    public function passwordRepeat()
-    {
-        if ($this->password != $this->passwordrepeat) {
-            $this->addError('passwordrepeat', 'Mật khẩu không kh');
-            return false;
-        }
-        return true;
-    }
+
 
     public function uniqUsername(){
         if (User::find()->select(['username'])->where(['username' => $this->username])->count() > 0) {
