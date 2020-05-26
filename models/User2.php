@@ -2,11 +2,24 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
+use Yii;
 
-class User extends ActiveRecord implements \yii\web\IdentityInterface
+/**
+ * This is the model class for table "user".
+ *
+ * @property int $id
+ * @property string $username
+ * @property string $password
+ * @property string $authKey
+ * @property string $accessToken
+   * @property AuthAssignment $id0
+
+ */
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public static function tableName()
     {
         return 'user';
@@ -15,6 +28,27 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
+    public function rules()
+    {
+        return [
+            [['username', 'password', 'authKey', 'accessToken'], 'required'],
+            [['username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 300],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Username',
+            'password' => 'Password',
+            'authKey' => 'Auth Key',
+            'accessToken' => 'Access Token',
+        ];
+    }
     public static function findIdentity($id)
     {
         return static::findOne($id);
@@ -76,4 +110,14 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->password === $password;
     }
+    /**
+     * Gets query for [[Id0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getId0()
+    {
+        return $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
+    }
 }
+

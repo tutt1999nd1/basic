@@ -12,6 +12,10 @@ use Yii;
  * @property string $password
  * @property string $authKey
  * @property string $accessToken
+ * @property AuthAssignment $id0
+ * @property String $role
+
+
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -29,7 +33,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'password', 'authKey', 'accessToken'], 'required'],
+            [['username', 'password', 'authKey', 'accessToken','role'], 'required'],
             [['username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 300],
         ];
     }
@@ -107,6 +111,19 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === $password;
+    }
+    /**
+     * Gets query for [[Id0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getId0()
+    {
+        return $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
+    }
+    public function getRole()
+    {
+        return $this->id0->item_name;
     }
 }
 

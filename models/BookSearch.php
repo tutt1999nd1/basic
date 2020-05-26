@@ -46,6 +46,7 @@ class BookSearch extends Book
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [ 'pageSize' => 2 ]
         ]);
 
         $this->load($params);

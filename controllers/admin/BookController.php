@@ -53,6 +53,7 @@ class BookController extends Controller
     {
         $searchModel = new BookSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 10,];
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -66,7 +67,7 @@ class BookController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
-    {
+    {   $book=Book::findOne($id);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -80,6 +81,7 @@ class BookController extends Controller
     public function actionCreate()
     {
         $category=Category::find()->asArray()->all();
+
         $model = new Book();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

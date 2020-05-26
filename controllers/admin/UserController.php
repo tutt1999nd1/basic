@@ -2,6 +2,7 @@
 
 namespace app\controllers\admin;
 
+use app\models\AuthAssignment;
 use Yii;
 use app\models\User;
 use app\models\UserSearch;
@@ -35,6 +36,9 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
+//        $test= User::findOne(1);
+//        print_r($test->role);
+//        die();
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -62,10 +66,8 @@ class UserController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate(){
         $model = new User();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -83,9 +85,13 @@ class UserController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
-    {
+    {   $auth= new AuthAssignment();
         $model = $this->findModel($id);
 
+//        $auth= AuthAssignment::findOne($model->id0->user_id);
+//        $auth=$model->id0;
+//        print_r($auth);
+//        die();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
