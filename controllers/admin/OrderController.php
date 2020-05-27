@@ -1,19 +1,20 @@
 <?php
 
-namespace app\controllers\student;
+namespace app\controllers\admin;
 
+use app\models\AuthAssignment;
 use Yii;
-use app\models\Book;
-use app\models\BookSearch;
-use yii\db\Expression;
+use app\models\Order;
+use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * BookController implements the CRUD actions for Book model.
+ * OrderController implements the CRUD actions for Order model.
  */
-class BookController extends Controller
+class OrderController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -21,6 +22,22 @@ class BookController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'view', 'delete'],
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+//                    [
+//                        'actions' => [],
+//                        'allow' => true,
+//                        'roles' => ['user'],
+//                    ],
+                ],
+            ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -31,22 +48,22 @@ class BookController extends Controller
     }
 
     /**
-     * Lists all Book models.
+     * Lists all Order models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new BookSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Order::find(),
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Book model.
+     * Displays a single Order model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,15 +76,20 @@ class BookController extends Controller
     }
 
     /**
-     * Creates a new Book model.
+     * Creates a new Order model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $model = new Book();
+//        $name=new Expression('NOW()');print_r($name);die();
+        $model = new Order();
+        $model->book_id=$id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->book_id=$id;
+            $model->user_id=Yii::$app->user->getId();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -77,7 +99,7 @@ class BookController extends Controller
     }
 
     /**
-     * Updates an existing Book model.
+     * Updates an existing Order model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -97,7 +119,7 @@ class BookController extends Controller
     }
 
     /**
-     * Deletes an existing Book model.
+     * Deletes an existing Order model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,23 +129,24 @@ class BookController extends Controller
     {
         $this->findModel($id)->delete();
 
-
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Book model based on its primary key value.
+     * Finds the Order model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Book the loaded model
+     * @return Order the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Book::findOne($id)) !== null) {
+        if (($model = Order::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }

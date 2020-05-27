@@ -69,7 +69,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+//        return $this->render('index');
+        return $this->redirect('student/book');
     }
 
     /**
@@ -94,22 +95,23 @@ class SiteController extends Controller
         ]);
     }
     public function actionSignup()
-    {
+    {   $message='';
         $user= new User();
         $auth= new AuthAssignment();
         $model = new SignUpForm();
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post()) && $model->uniqUsername()) {
             $user->username=$model['username'];
             $user->password=$model['password'];
-            $user->save(false);
+//            $user->save(false);
             print_r($user->id);
             $auth->item_name='user';
             $auth->user_id=$user->id;
-            $auth->save(false);
-            return $this->goHome();
+//            $auth->save(false);
+            $message='Đăng kí thành công!';
+            return $this->render('signup',['model'=>$model,'message'=>$message]);
         }
 
-        return $this->render('signup',['model'=>$model]);
+        return $this->render('signup',['model'=>$model,'message'=>$message]);
     }
 
     /**

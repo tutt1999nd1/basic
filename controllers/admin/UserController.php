@@ -30,11 +30,6 @@ class UserController extends Controller
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
-//                    [
-//                        'actions' => [],
-//                        'allow' => true,
-//                        'roles' => ['user'],
-//                    ],
                 ],
             ],
             'verbs' => [
@@ -52,12 +47,6 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-//        $test= User::findOne(2);
-//        print_r($test->getRole());
-//        $test= new AuthAssignment();
-//        $test= AuthAssignment::find()->select(['item_name'])->where(['user_id' => 3])->one();
-//        print_r($test);
-//        die();
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

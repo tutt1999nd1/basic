@@ -47,8 +47,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'password' => 'Password',
+            'username' => 'Tài khoản',
+            'password' => 'Mật khẩu',
             'authKey' => 'Auth Key',
             'accessToken' => 'Access Token',
         ];

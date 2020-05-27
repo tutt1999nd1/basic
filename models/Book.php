@@ -45,10 +45,10 @@ class Book extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category ID',
-            'name' => 'Name',
-            'author' => 'Author',
-            'amount' => 'Amount',
+            'category_id' => 'Thể loại',
+            'name' => 'Tên sách',
+            'author' => 'Tác giả',
+            'amount' => 'Số lượng trong kho',
         ];
     }
 

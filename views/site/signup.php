@@ -10,7 +10,10 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Đăng kí';
     $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
+<div>
+    <p1 style="color:lightgreen">  <?= Html::encode($message) ?>
+    </p1>
+</div><div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Điền đầy đủ thông tin:</p>

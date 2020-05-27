@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\BookSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Books';
+$this->title = 'Thư viện';
 ?>
 <div class="book-index">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -20,7 +20,20 @@ $this->title = 'Books';
             'name',
             'author',
             'amount',
+            [
+                'format' => 'raw',
+                'value' => function($data) {
+                    if($data->amount>0)
+                    return Html::a('Mượn sách', [ '/student/order/create','id' => $data->id ], ['class' => 'btn']);
+                    else
+//                        return Html::a('Hết sách',[ '/' ],['class' => 'btn']);
+                         return Html::label('Sách đã hết',['class' => 'label']);
+                  }
+
+
+            ]
         ],
+
     ]); ?>
 
 

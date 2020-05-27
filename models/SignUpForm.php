@@ -23,6 +23,9 @@ class SignUpForm extends Model
             [['username', 'password', 'passwordrepeat', ], 'required', 'message' => 'Mời điền thông tin'],
             [['password','passwordrepeat'], 'string', ],
             ['passwordrepeat','compare','compareAttribute'=>'password', 'message'=>'Mật khẩu chưa khớp'],
+            [['username'], 'unique',
+                'targetClass' => User::className(),
+                'message' => 'Tên tài khoản đã tồn tại']
 
         ];
     }
@@ -44,7 +47,7 @@ class SignUpForm extends Model
 
     public function uniqUsername(){
         if (User::find()->select(['username'])->where(['username' => $this->username])->count() > 0) {
-            $this->addError('username', 'Имя пользователя должно быть уникально.');
+            $this->addError('username', 'Tên tài khoản đã tồn tại');
             return false;
         }
         return true;

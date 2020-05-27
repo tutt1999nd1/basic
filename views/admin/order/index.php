@@ -4,29 +4,26 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Danh sách người dùng';
+$this->title = 'Danh sách đơn mượn sách';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
+<div class="order-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Thêm người dùng', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
+
             'id',
-            'username',
-            ['attribute' => 'id0.item_name'],
+            'user_id',
+            'book_id',
+            'order_date',
+            'expiration_date',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -46,7 +46,7 @@ class BookSearch extends Book
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [ 'pageSize' => 2 ]
+            'pagination' => [ 'pageSize' => 10 ]
         ]);
 
         $this->load($params);
@@ -65,7 +65,8 @@ class BookSearch extends Book
 
         $query->andFilterWhere(['like', 'category_id', $this->category_id])
             ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'author', $this->author]);
+            ->andFilterWhere(['like', 'author', $this->author]
+                );
 
         return $dataProvider;
     }

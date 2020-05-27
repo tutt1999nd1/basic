@@ -3,12 +3,16 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\models\AuthAssignment;
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+
+
+
 
 AppAsset::register($this);
 ?>
@@ -29,20 +33,40 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' =>'Thư viện Tổng Công Ty Viettel',
+        'brandLabel' => Html::img('@web/images/logo.svg', ['alt'=>Yii::$app->name]),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
+            'icon'=> 'logo.svg',
         ],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Trang chủ', 'url' => ['/student/book']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            AuthAssignment::find()->where(['user_id'=>Yii::$app->user->getId()])->one()['item_name']=='admin' ? (
+            ['label' => 'Quản lý sách', 'url' => ['/admin/book']]
+            ) : (
+            ['label' => 'Thư viện', 'url' => ['/student/book']]
+
+            ),
+            AuthAssignment::find()->where(['user_id'=>Yii::$app->user->getId()])->one()['item_name']=='user' ? (
+            ['label' => 'Sách đã mượn', 'url' => ['/student/order']]
+            ) : (
+            '<li>'.'<li>'
+
+            ),
+            AuthAssignment::find()->where(['user_id'=>Yii::$app->user->getId()])->one()['item_name']=='admin' ? (
+            ['label' => 'Quản lý người dùng', 'url' => ['/admin/user']]
+            ) : (
+                '<li>'
+                . '</li>'            ),
+            AuthAssignment::find()->where(['user_id'=>Yii::$app->user->getId()])->one()['item_name']=='admin' ? (
+            ['label' => 'Quản lý yêu cầu mượn sách', 'url' => ['/admin/order']]
+            ) : (
+                '<li>'
+                . '</li>'            ),
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Đăng nhập', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -63,6 +87,7 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
+
 
     <div class="container">
         <?= Breadcrumbs::widget([
