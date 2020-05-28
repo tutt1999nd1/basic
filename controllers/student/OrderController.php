@@ -82,6 +82,9 @@ class OrderController extends Controller
 //        $name=new Expression('NOW()');print_r($name);die();
         $model = new Order();
         $model->book_id=$id;
+        $model->order_date='29/05/2020';
+        $model->expiration_date='29/10/2020';
+        $book2=Book::findOne($model->book_id);
 
         if ($model->load(Yii::$app->request->post()) ) {
             $model->book_id=$id;
@@ -95,6 +98,7 @@ class OrderController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'book'=>$book2
         ]);
     }
 
@@ -108,6 +112,9 @@ class OrderController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $test= Order::findOne($id);
+        $book2=Book::findOne($test->book_id);
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -115,6 +122,8 @@ class OrderController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'book'=>$book2
+
         ]);
     }
 
