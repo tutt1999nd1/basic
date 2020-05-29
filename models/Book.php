@@ -16,7 +16,7 @@ use Yii;
  * @property Category $category
  */
 class Book extends \yii\db\ActiveRecord
-{
+{   public $image;
     /**
      * {@inheritdoc}
      */
@@ -44,7 +44,7 @@ class Book extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Mã sách',
             'category_id' => 'Thể loại',
             'name' => 'Tên sách',
             'author' => 'Tác giả',
@@ -61,4 +61,10 @@ class Book extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
+    public function getImage()
+    {
+//        return \Yii::$app->request->BaseUrl.'/uploads/'.$this->image;
+        return Url::to('@web/uploads/' . $this->image, true);
+    }
+
 }

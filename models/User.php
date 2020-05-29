@@ -37,6 +37,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return [
             [['username','password','role'], 'required'],
             [['username' ,'role'], 'string', 'max' => 300],
+
         ];
     }
 
@@ -46,7 +47,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Mã người dùng',
             'username' => 'Tài khoản',
             'password' => 'Mật khẩu',
             'authKey' => 'Auth Key',
@@ -112,7 +113,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return $this->password === md5($password);
     }
     /**
      * Gets query for [[Id0]].

@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Cập nhật', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Xác nhận', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

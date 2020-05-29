@@ -100,9 +100,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <img src="/images/vsb.png">
+        <?php
+        Html::img('@web/images/logo.svg', ['alt'=>Yii::$app->name,'class'=>'pull-left'])        ?>
     </div>
 </footer>
 

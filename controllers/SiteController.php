@@ -101,12 +101,12 @@ class SiteController extends Controller
         $model = new SignUpForm();
         if ($model->load(Yii::$app->request->post()) && $model->uniqUsername()) {
             $user->username=$model['username'];
-            $user->password=$model['password'];
-//            $user->save(false);
+            $user->password=md5($model['password']);
+            $user->save(false);
             print_r($user->id);
             $auth->item_name='user';
             $auth->user_id=$user->id;
-//            $auth->save(false);
+            $auth->save(false);
             $message='Đăng kí thành công!';
             return $this->render('signup',['model'=>$model,'message'=>$message]);
         }

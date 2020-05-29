@@ -22,6 +22,7 @@ class SignUpForm extends Model
         return [
             [['username', 'password', 'passwordrepeat', ], 'required', 'message' => 'Mời điền thông tin'],
             [['password','passwordrepeat'], 'string', ],
+            [[ 'password','passwordrepeat'], 'string', 'max'=>600, 'min'=>6, 'tooLong' => 'Mật khảu quá dài', 'tooShort'=>'Mật khâu tối thiểu 6 kí tự'],
             ['passwordrepeat','compare','compareAttribute'=>'password', 'message'=>'Mật khẩu chưa khớp'],
             [['username'], 'unique',
                 'targetClass' => User::className(),

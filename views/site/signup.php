@@ -11,7 +11,7 @@ $this->title = 'Đăng kí';
     $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>
-    <p1 style="color:lightgreen">  <?= Html::encode($message) ?>
+    <p1 style="color:#006fff">  <?= Html::encode($message) ?>
     </p1>
 </div><div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -37,7 +37,7 @@ $this->title = 'Đăng kí';
 
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
-            <?= Html::submitButton('Sign Up', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('Đăng kí', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
     </div>
 

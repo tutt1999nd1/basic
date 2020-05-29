@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\BookSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Thư viện';
+$this->title = 'Thư viện Viettel';
 ?>
 <div class="book-index">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -16,8 +16,9 @@ $this->title = 'Thư viện';
         'filterModel' => $searchModel,
         'columns' => [
             'id',
-            'category_id',
             'name',
+            'category_id',
+
             'author',
             'amount',
             [

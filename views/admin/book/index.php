@@ -26,8 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
-            'category_id',
+            array(
+                'format' => 'image',
+                'value'=>function($data) { return $data->image; },
+
+            ),
             'name',
+
+
+            'category_id',
             'author',
             'amount',
             ['class' => 'yii\grid\ActionColumn'],

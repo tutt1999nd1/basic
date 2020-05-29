@@ -42,7 +42,7 @@ class Order extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Mã đơn',
             'user_id' => 'Mã sinh viên',
             'order_date' => 'Ngày mượn',
             'expiration_date' => 'Hạn trả sách',
