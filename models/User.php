@@ -115,30 +115,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->password === md5($password);
     }
-    /**
-     * Gets query for [[Id0]].
-     *
-     * @return string
-     */
+
     public function getId0()
     {
         return $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
     }
-    /**
-     * Gets query for [[Id0]].
-     *
-     */
-//    public function getRole()
-//    {
-//                $test= $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
-//                return $test['item_name'];
-//    }
-//    public function getRole()
-//    {
-////        $test= AuthAssignment::find()->select(['item_name'])->where(['user_id' => $this->id])->one();
-////        return $test['item_name'];
-////        $test= AuthAssignment::find()->select(['item_name'])->where(['user_id' => $this->id])->one();
-//        return $this->id0->item_name;
-//    }
+
+
 }
 

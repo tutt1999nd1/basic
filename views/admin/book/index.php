@@ -26,9 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
+
             array(
-                'format' => 'image',
-                'value'=>function($data) { return $data->image; },
+                'attribute' => 'image',
+                'format' => 'html',
+                'value'=>function($data) {
+                    return Html::img(\Yii::$app->request->BaseUrl . '/uploads/' . $data->image, ['width' => 100, 'height' => 100]);                    },
 
             ),
             'name',

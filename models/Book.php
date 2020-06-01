@@ -3,20 +3,22 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "book".
  *
- * @property int $id
- * @property string $category_id
- * @property string|null $name
- * @property string|null $author
- * @property int|null $amount
- *
- * @property Category $category
+// * @property int $id
+// * @property string $category_id
+// * @property string|null $name
+// * @property string|null $author
+// * @property int|null $amount
+// *
+// * @property Category $category
  */
 class Book extends \yii\db\ActiveRecord
-{   public $image;
+{
+//    public $image;
     /**
      * {@inheritdoc}
      */
@@ -35,6 +37,8 @@ class Book extends \yii\db\ActiveRecord
             [['amount'], 'integer'],
             [['category_id', 'name', 'author'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['image'],'file','skipOnEmpty' => false, 'extensions' => 'png,jpg']
+
         ];
     }
 
@@ -49,6 +53,8 @@ class Book extends \yii\db\ActiveRecord
             'name' => 'Tên sách',
             'author' => 'Tác giả',
             'amount' => 'Số lượng trong kho',
+            'image' =>'Hình ảnh',
+
         ];
     }
 
@@ -61,10 +67,7 @@ class Book extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
-    public function getImage()
-    {
-//        return \Yii::$app->request->BaseUrl.'/uploads/'.$this->image;
-        return Url::to('@web/uploads/' . $this->image, true);
-    }
+
+
 
 }

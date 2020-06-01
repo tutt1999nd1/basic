@@ -31,11 +31,7 @@ class BookController extends Controller
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
-//                    [
-//                        'actions' => [],
-//                        'allow' => true,
-//                        'roles' => ['user'],
-//                    ],
+
                 ],
             ],
             'verbs' => [
@@ -69,8 +65,10 @@ class BookController extends Controller
      */
     public function actionView($id)
     {   $book=Book::findOne($id);
-        print_r($book->getImage());
-        die();
+    print_r($book->image);
+    die;
+//        print_r($book->getImage());
+//        die();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -90,7 +88,7 @@ class BookController extends Controller
         if ($model->load(Yii::$app->request->post())  ) {
             $model->image= UploadedFile::getInstance($model,'image');
             $model->image->saveAs('uploads/'.$model->image->baseName.'.'.$model->image->extension);
-            $model->save();
+            $model->save(false);
 
 
             return $this->redirect(['view', 'id' => $model->id,'categories'=>$category]);

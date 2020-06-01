@@ -82,8 +82,8 @@ class OrderController extends Controller
 //        $name=new Expression('NOW()');print_r($name);die();
         $model = new Order();
         $model->book_id=$id;
-        $model->order_date='29/05/2020';
-        $model->expiration_date='29/10/2020';
+        $model->order_date='02/06/2020';
+        $model->expiration_date='02/12/2020';
         $book2=Book::findOne($model->book_id);
 
         if ($model->load(Yii::$app->request->post()) ) {

@@ -16,6 +16,13 @@ $this->title = 'Thư viện Viettel';
         'filterModel' => $searchModel,
         'columns' => [
             'id',
+            array(
+                'attribute' => 'image',
+                'format' => 'html',
+                'value'=>function($data) {
+                    return Html::img(\Yii::$app->request->BaseUrl . '/uploads/' . $data->image, ['width' => 100, 'height' => 100]);                    },
+
+            ),
             'name',
             'category_id',
 
