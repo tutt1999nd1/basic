@@ -27,9 +27,14 @@ class BookController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'create', 'update', 'view', 'delete'],
+                        'actions' => [ 'update', 'view', 'delete'],
                         'allow' => true,
                         'roles' => ['admin'],
+                    ],
+                    [
+                        'actions' => ['index', 'create',],
+                        'allow' => true,
+                        'roles' => ['user'],
                     ],
 
                 ],
@@ -65,8 +70,8 @@ class BookController extends Controller
      */
     public function actionView($id)
     {   $book=Book::findOne($id);
-    print_r($book->image);
-    die;
+//    print_r($book->image);
+//    die;
 //        print_r($book->getImage());
 //        die();
         return $this->render('view', [

@@ -30,9 +30,9 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'order_date', 'expiration_date', 'book_id'], 'required'],
+            [['user_id',  'book_id'], 'required'],
             [['user_id', 'book_id'], 'integer'],
-            [['order_date', 'expiration_date'], 'string', 'max' => 255],
+            [['order_date', 'expiration_date'], 'string'],
         ];
     }
 

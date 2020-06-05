@@ -13,14 +13,10 @@ use yii\widgets\ActiveForm;
 <div class="order-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'book_id')->textInput(['disabled'=>true]) ?>
+    <?= $form->field($model, 'book_id')->textInput() ?>
     <?= $form->field($book, 'name')->textInput(['disabled'=>true]) ?>
-
-
-
-    <?= $form->field($model, 'order_date')->textInput(['disabled'=>true]) ?>
-
-    <?= $form->field($model, 'expiration_date')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'order_date')->textInput(['disabled'=>true,'maxlength' => true]) ?>
+    <?= $form->field($model, 'expiration_date')->textInput(['disabled'=>true,'maxlength' => true]) ?>
 
 
     <div class="form-group">

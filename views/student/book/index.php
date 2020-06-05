@@ -20,7 +20,7 @@ $this->title = 'Thư viện Viettel';
                 'attribute' => 'image',
                 'format' => 'html',
                 'value'=>function($data) {
-                    return Html::img(\Yii::$app->request->BaseUrl . '/uploads/' . $data->image, ['width' => 100, 'height' => 100]);                    },
+                    return Html::img(\Yii::$app->request->BaseUrl . '/uploads/' . $data->image, ['width' => 100, 'height' => 150]);                    },
 
             ),
             'name',

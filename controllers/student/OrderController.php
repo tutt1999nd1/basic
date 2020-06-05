@@ -87,6 +87,7 @@ class OrderController extends Controller
         $book2=Book::findOne($model->book_id);
 
         if ($model->load(Yii::$app->request->post()) ) {
+
             $model->book_id=$id;
             $model->user_id=Yii::$app->user->getId();
             $model->save(false);
